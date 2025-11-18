@@ -74,15 +74,17 @@ function App() {
       <div className="bg-gradient" aria-hidden />
       <main className="login-shell">
         <header className="login-header">
-          <h1>تسجيل الدخول</h1>
-          <a href="/home.html">
-          <p>مرحباً بك في مبادرة تن محم الثقافية</p>
-        </a>
+          <img className="brand-logo" src="/elmou.jpg" alt="Logo" />
+          <h1>مرحباً بك في منصة" تن محم "الثقافية</h1>
+         
         </header>
 
         <section className="login-card">
+
+          
           <div className="avatar">
             <span aria-hidden>👤</span>
+           
           </div>
 
           <label className="field">
@@ -106,7 +108,7 @@ function App() {
           </label>
 
           <button type="button" className="cta primary" onClick={handleLogin} disabled={loading}>
-            {loading ? 'جار التحقق...' : 'الدخول'}
+            {loading ? 'جار التحقق...' : 'تسجيل الدخول '}
           </button>
 
           <div className={`status ${statusType}`}>{status}</div>
