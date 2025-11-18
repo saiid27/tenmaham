@@ -75,7 +75,9 @@ function App() {
       <main className="login-shell">
         <header className="login-header">
           <h1>تسجيل الدخول</h1>
+          <a href="public\home.html">
           <p>مرحباً بك في مبادرة تن محم الثقافية</p>
+        </a>
         </header>
 
         <section className="login-card">
