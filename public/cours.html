@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>الدروس |</title>
+    <style>
+      :root {
+        font-family: 'Cairo', 'Segoe UI', system-ui, sans-serif;
+        color: #e2e8f0;
+        background: #0b1220;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        position: relative;
+        margin: 0;
+        min-height: 100vh;
+        background: radial-gradient(circle at 15% 20%, rgba(76, 106, 255, 0.25), transparent 28%),
+          radial-gradient(circle at 85% 15%, rgba(34, 211, 238, 0.22), transparent 26%),
+          radial-gradient(circle at 60% 75%, rgba(255, 202, 99, 0.18), transparent 30%),
+          linear-gradient(145deg, #0d1529, #0a0f1f 55%, #0c1325);
+        display: grid;
+        place-items: center;
+        padding: 40px 18px;
+        overflow: hidden;
+      }
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background:
+          repeating-linear-gradient(
+            0deg,
+            rgba(255, 255, 255, 0.025),
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px,
+            transparent 28px
+          ),
+          repeating-linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.025),
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px,
+            transparent 28px
+          );
+        pointer-events: none;
+        opacity: 0.35;
+      }
+      .shell {
+        position: relative;
+        width: min(1100px, 96vw);
+        background: rgba(15, 23, 42, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 22px;
+        padding: 28px 30px 34px;
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+      }
+      .bg-orb {
+        position: absolute;
+        width: 360px;
+        height: 360px;
+        border-radius: 50%;
+        filter: blur(90px);
+        opacity: 0.75;
+        z-index: 0;
+      }
+      .orb-a {
+        top: -60px;
+        right: -80px;
+        background: radial-gradient(circle, rgba(99, 102, 241, 0.75), transparent 55%);
+      }
+      .orb-b {
+        bottom: -90px;
+        left: -90px;
+        background: radial-gradient(circle, rgba(34, 211, 238, 0.65), transparent 55%);
+      }
+      .content {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        gap: 18px;
+      }
+      .page-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .brand img {
+        width: 70px;
+        height: 70px;
+        border-radius: 16px;
+        object-fit: cover;
+        border: 2px solid rgba(99, 102, 241, 0.35);
+        box-shadow: 0 10px 25px rgba(99, 102, 241, 0.25);
+      }
+      h1 {
+        margin: 0;
+        font-size: 1.7rem;
+        color: #f8fafc;
+      }
+      h2 {
+        margin: 0 0 6px;
+        color: #e5edff;
+      }
+      .tagline {
+        margin: 4px 0 0;
+        color: #cbd5e1;
+        opacity: 0.9;
+      }
+      p {
+        margin: 0;
+        color: #cbd5e1;
+        line-height: 1.55;
+        font-size: 0.98rem;
+      }
+      .cta-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 8px;
+      }
+      a.cta {
+        padding: 10px 14px;
+        border-radius: 12px;
+        font-weight: 800;
+        text-decoration: none;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        font-size: 0.95rem;
+        line-height: 1.2;
+      }
+      a.primary {
+        background: linear-gradient(135deg, #41c4f5, #1aa1d8);
+        color: #0b1220;
+        box-shadow: 0 12px 30px rgba(26, 161, 216, 0.35);
+      }
+      a.secondary {
+        color: #e2e8f0;
+        background: rgba(255, 255, 255, 0.07);
+        border-color: rgba(255, 255, 255, 0.12);
+      }
+      a.cta:hover {
+        transform: translateY(-2px);
+      }
+      .tiles {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 14px;
+      }
+      .tile {
+        border-radius: 16px;
+        padding: 12px;
+        position: relative;
+        overflow: hidden;
+        color: #0b1220;
+        isolation: isolate;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.23);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        aspect-ratio: 1 / 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 6px;
+        text-align: center;
+        background-size: 200% 200%;
+        animation: float 6s ease-in-out infinite alternate, gradientShift 14s ease-in-out infinite;
+        border: none;
+        cursor: pointer;
+      }
+      .tile::after,
+      .tile::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 16px;
+        mix-blend-mode: screen;
+        opacity: 0.7;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .tile::after {
+        background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.22), transparent 40%),
+          radial-gradient(circle at 80% 0%, rgba(255, 255, 255, 0.18), transparent 40%);
+      }
+      .tile::before {
+        background: linear-gradient(120deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0));
+        transform: translateX(-120%);
+        animation: shine 4s ease-in-out infinite;
+      }
+      .tile h2 {
+        position: relative;
+        z-index: 1;
+        margin: 0;
+        color: #0b1220;
+        font-size: 1rem;
+      }
+      .tile p {
+        position: relative;
+        z-index: 1;
+        margin: 0;
+        color: #0b1220;
+        font-size: 0.88rem;
+        line-height: 1.4;
+      }
+      .tile:hover {
+        transform: translateY(-6px) scale(1.02) rotate(-0.7deg);
+        box-shadow: 0 22px 50px rgba(0, 0, 0, 0.32);
+        animation: float 6s ease-in-out infinite alternate,
+          gradientShift 14s ease-in-out infinite,
+          hoverPulse 0.5s ease;
+      }
+      .tile-1 {
+        background: linear-gradient(135deg, #a5b4fc, #60a5fa);
+        animation-delay: 0s;
+      }
+      .tile-2 {
+        background: linear-gradient(135deg, #34d399, #22c55e);
+        animation-delay: 0.8s;
+      }
+      .tile-3 {
+        background: linear-gradient(135deg, #fcd34d, #f59e0b);
+        animation-delay: 1.4s;
+      }
+      .tile-4 {
+        background: linear-gradient(135deg, #f472b6, #ec4899);
+        animation-delay: 2s;
+      }
+      @keyframes shine {
+        0% {
+          transform: translateX(-120%);
+          opacity: 0;
+        }
+        20% {
+          opacity: 0.4;
+        }
+        50% {
+          transform: translateX(120%);
+          opacity: 0.2;
+        }
+        100% {
+          transform: translateX(120%);
+          opacity: 0;
+        }
+      }
+      @keyframes float {
+        from {
+          transform: translateY(0px);
+        }
+        to {
+          transform: translateY(-8px);
+        }
+      }
+      @keyframes hoverPulse {
+        0% {
+          transform: translateY(0) scale(1) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-12px) scale(1.05) rotate(-1deg);
+        }
+        100% {
+          transform: translateY(-6px) scale(1.02) rotate(-0.7deg);
+        }
+      }
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 0%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 100%;
+        }
+      }
+      @media (max-width: 640px) {
+        .shell {
+          padding: 22px;
+        }
+        h1 {
+          font-size: 1.45rem;
+        }
+        .tiles {
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+          gap: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <div class="bg-orb orb-a"></div>
+      <div class="bg-orb orb-b"></div>
+      <div class="content">
+        <header class="page-header">
+          <div class="brand">
+            <img
+              src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=200&q=80"
+              alt="شعار مبادرة تن محم الثقافية"
+            />
+            <div>
+              <h1>الدروس | منصة "تن محم" الثقافية</h1>
+              <p class="tagline">    عطاء - مثارة - نجاح</p>
+            </div>
+          </div>
+          <div class="cta-row">
+            <a class="cta primary" href="/">  تسجيل الخروج</a>
+            <a class="cta secondary" href="/home.html">العودة للصفة الرئيسية </a>
+          </div>
+        </header>
+
+        <div class="tiles">
+          <button class="tile tile-1" data-link="">
+            <h2>الرياضيات 7D  </h2>
+         <p>الدروس مرتبة حسب العنوانين ورقم الدرس يرجي المتابعة من البداية وعدم الاستعجال </p>
+          </button>
+          <button class="tile tile-2" data-link="">
+            <h2>الفيزياء </h2>
+            <p>الدروس مرتبة حسب العنوانين ورقم الدرس يرجي المتابعة من البداية وعدم الاستعجال </p>
+          </button>
+          <button class="tile tile-3" data-link="">
+            <h2>الكيمياء </h2>
+            <p>الدروس مرتبة حسب العنوانين ورقم الدرس يرجي المتابعة من البداية وعدم الاستعجال </p>
+          </button>
+          <button class="tile tile-4" data-link="">
+            <h2>العلوم الطبيعية   </h2>
+            <p>الدروس مرتبة حسب العنوانين ورقم الدرس يرجي المتابعة من البداية وعدم الاستعجال </p>
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+      // ضع الروابط النهائية هنا (ابدأ بـ https://) بالترتيب نفسه.
+      const links = [
+        'https://temeyouzi.blogspot.com/p/mth-7d.html', // math
+        '', // الفنون البصرية
+        '', // الهوية والتراث
+        '', // كتابة ومهارات عرض
+      ]
+
+      document.querySelectorAll('.tile').forEach((tile, idx) => {
+        tile.addEventListener('click', () => {
+          const href = links[idx] || tile.dataset.link || ''
+          if (!href) {
+            alert('error 3434    .')
+            return
+          }
+          const normalized = /^https?:\/\//i.test(href) ? href : `https://${href}`
+          window.location.href = normalized
+        })
+      })
+    </script>
+  </body>
+</html>
