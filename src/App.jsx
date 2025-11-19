@@ -72,60 +72,58 @@ function App() {
   return (
     <div className="page" dir="rtl">
       <div className="bg-gradient" aria-hidden />
-      <main className="login-shell">
-        <header className="login-header">
-          <img className="brand-logo" src="/elmou.jpg" alt="Logo" />
-          <h1>مرحباً بك في منصة" تن محم "الثقافية</h1>
-         
-        </header>
+      <div className="phone-frame">
+        <main className="login-shell">
+          <header className="login-header">
+            <img className="brand-logo" src="/elmou.jpg" alt="Logo" />
+            <h1>مرحباً بك في منصة تن محم الثقافية</h1>
+          </header>
 
-        <section className="login-card">
+          <section className="login-card">
+            <div className="avatar">
+              <span aria-hidden>👤</span>
+            </div>
 
-          
-          <div className="avatar">
-            <span aria-hidden>👤</span>
-           
-          </div>
+            <label className="field">
+              <span className="field-label">الرقم</span>
+              <input
+                type="text"
+                placeholder="رقم الهاتف أو المعرف"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </label>
 
-          <label className="field">
-            <span className="field-label">الرقم</span>
-            <input
-              type="text"
-              placeholder="رقم الهاتف أو المعرف"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-            />
-          </label>
+            <label className="field">
+              <span className="field-label">كلمة المرور</span>
+              <input
+                type="password"
+                placeholder="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </label>
 
-          <label className="field">
-            <span className="field-label">كلمة المرور</span>
-            <input
-              type="password"
-              placeholder="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </label>
+            <button type="button" className="cta primary" onClick={handleLogin} disabled={loading}>
+              {loading ? 'جار التحقق...' : 'تسجيل الدخول '}
+            </button>
 
-          <button type="button" className="cta primary" onClick={handleLogin} disabled={loading}>
-            {loading ? 'جار التحقق...' : 'تسجيل الدخول '}
-          </button>
+            <div className={`status ${statusType}`}>{status}</div>
 
-          <div className={`status ${statusType}`}>{status}</div>
-
-          <div className="help">
-            <a href="https://api.whatsapp.com/send/?phone=%2B22234605765&text&type=phone_number&app_absent=0">نسيت كلمة المرور؟</a>
-            <a
-              className="link-btn"
-              href="https://docs.google.com/forms/d/e/1FAIpQLSd18leWhXOJ1rATGxIn0sas7_-TVPU-iE3URiBu8EyUk6JDKQ/viewform?usp=header"
-              target="_blank"
-              rel="noreferrer"
-            >
-              إنشاء حساب جديد
-            </a>
-          </div>
-        </section>
-      </main>
+            <div className="help">
+              <a href="https://api.whatsapp.com/send/?phone=%2B22234605765&text&type=phone_number&app_absent=0">نسيت كلمة المرور؟</a>
+              <a
+                className="link-btn"
+                href="https://docs.google.com/forms/d/e/1FAIpQLSd18leWhXOJ1rATGxIn0sas7_-TVPU-iE3URiBu8EyUk6JDKQ/viewform?usp=header"
+                target="_blank"
+                rel="noreferrer"
+              >
+                إنشاء حساب جديد
+              </a>
+            </div>
+          </section>
+        </main>
+      </div>
     </div>
   )
 }
